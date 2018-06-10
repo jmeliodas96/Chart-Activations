@@ -1,8 +1,8 @@
 const DEFAULT_GRAPH_CONFIG  = {
   chart: {
+    // backgroundColor: '#3e3e40',
     type      : 'line',
     zoomType  : 'xy',
-
     style     : {
       fontFamily  : '"Open Sans",sans-serif',
     },
@@ -23,33 +23,57 @@ const DEFAULT_GRAPH_CONFIG  = {
       enabled: true
   },
   title: {
-      text: 'IMOX TECHNOLOGIES'
+      text: 'IMOX TECHNOLOGIES',
+      style     : {
+        fontFamily  : '"Open Sans",sans-serif',
+        color:'#3e3e40'
+      }
   },
   subtitle  : {
-    text  : 'Report of Carrier Activation'
+    text  : 'Report of Carrier Activation',
+    style     : {
+      fontFamily  : '"Open Sans",sans-serif',
+      color:'#3e3e40'
+    }
   },
   legend  : {
       enabled: true
   },
   xAxis : {
       title   : {
-                  text: 'X'
+                  text: 'Series By Carrier',
+                  style     : {
+                    fontFamily  : '"Open Sans",sans-serif',
+                    color:'#3e3e40'
+                  }
                 },
-      categories  : ['Carrier','Country','Brand'],
+      // categories  : ['Carrier','Country','Brand'],
+      categories  : [],
+      // categories  : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       opposite    : false
+
   },
   yAxis : {
     title   : {
-                text: 'Y'
+                text: 'BRAND',
+                style     : {
+                  fontFamily  : '"Open Sans",sans-serif',
+                  color:'#3e3e40'
+                }
               },
     resize  : {
                 enabled: true
               },
     showFirstLabel  : true,
     showLastLabel   : true,
+    // categories  : [],
     opposite: false,
+
   },
-  series  : ['NANI','NANI','NANI'] //array for data
+  // series  : [{},{},{}], //array for data
+  series: [
+    { data: [], name:'', cursor: 'pointer'},
+  ]
 };
 
 
