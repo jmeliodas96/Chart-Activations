@@ -5,6 +5,9 @@ import ReactHighcharts from 'react-highcharts';
 //data
 // import DATA from '../Data/Data.js';
 
+// styles
+import './chart.css';
+
 //constants
 import DEFAULT_GRAPH_CONFIG from '../Constants';
 
@@ -87,7 +90,6 @@ componentDidMount(){
   // }
 
 
-  // // this.series[0].nam
   // chart.addSeries({
   //          name: 'S2',
   //          data: [216.4, 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5]
@@ -168,7 +170,7 @@ componentDidMount(){
 
   render() {
     return (
-        <div>
+        <div className="container">
           <ReactHighcharts config={DEFAULT_GRAPH_CONFIG} ref="chart"/>
         </div>
     );

@@ -228,3 +228,159 @@
         mapChart.get('us').select();
     }
 });
+
+
+
+
+
+
+*******************
+// dependencies
+import React, {Component} from 'react';
+import Highmap from 'highcharts/highmaps';
+import Highcharts from 'highcharts/highstock';
+
+// Modules
+import exporting from 'highcharts/modules/map';
+import exporting_one from 'highcharts/indicators/indicators';
+import exporting_two from 'highcharts/indicators/pivot-points';
+import exporting_three from 'highcharts/indicators/macd';
+import exporting_four from 'highcharts/modules/exporting';
+
+// Style
+import './map.css';
+
+// data
+import mapData from '../Data/mapData.js';
+import Niall from '../Data/ni-all.js';
+
+
+
+// Load module after Highcharts is loaded
+exporting(Highmap);
+exporting_one(Highcharts);
+exporting_two(Highcharts);
+exporting_three(Highcharts);
+exporting_four(Highcharts);
+
+// const data = [['us-ny', 0], ['us-mi', 5], ['us-tx', 3], ['us-ak', 5]];
+const data = [
+    ['ni-as', 0],
+    ['ni-an', 1],
+    ['ni-224', 2],
+    ['ni-6330', 3],
+    ['ni-ca', 4],
+    ['ni-gr', 5],
+    ['ni-ji', 6],
+    ['ni-le', 7],
+    ['ni-mn', 8],
+    ['ni-ms', 9],
+    ['ni-ci', 10],
+    ['ni-es', 11],
+    ['ni-md', 12],
+    ['ni-mt', 13],
+    ['ni-ns', 14],
+    ['ni-bo', 15],
+    ['ni-co', 16]
+];
+
+const CONFIG = {
+    chart: {
+      map: 'countries/ni/ni-all'
+    },
+
+    title: {
+        text: 'Highmaps basic demo'
+    },
+
+    subtitle: {
+        text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/ni/ni-all.js">Nicaragua</a>'
+    },
+
+    mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    colorAxis: {
+        min: 0
+    },
+  //     series: [{
+  //     mapData: [u]Niall[/u],
+  //     data: data,
+  //     name: 'Nicaragua',
+  //     states: {
+  //         hover: {
+  //             color: '#BADA55'
+  //         }
+  //     },
+  //     dataLabels: {
+  //         enabled: true,
+  //         format: '{point.name}'
+  //     }
+  // }]
+};
+
+class Map extends Component {
+
+componentDidMount(){
+
+  console.log('This the Highmap : ',Highmap);
+  const p = this.props;
+
+  // create container and default state
+  let chart = new Highmap.mapChart('container',CONFIG);
+
+  console.log(mapData);
+
+  console.log(chart.series.map);
+
+
+}
+
+shouldComponentUpdate(nextProps, nextState){
+  let update = this.props.update
+  return (typeof update === 'undefined') || update
+}
+
+componentDidUpdate() {
+  this.chart.update(this.props.options)
+}
+
+componentWillReceiveProps() {
+  this.chart.update(this.props.options)
+}
+
+componentWillUnmount() {
+  // Destroy chart
+  this.chart.destroy();
+}
+
+
+render(){
+      return (
+            <div id="container" className="container">
+            </div>
+            );
+    }
+// end of class
+}
+
+
+// <Highmap config={mapOptions} />
+
+// <h1>Ichigo-san</h1>
+// <Highchart config={Mapconfig} ref="Chart"/>
+
+      // let props = this.props;
+      // let self = this;
+      // let containerProps = this.props.containerProps || {};
+      //
+      // // Add ref to div props
+      // containerProps.ref = function (container) { self.container = container }
+
+      // console.log(containerProps);
+
+export default Map

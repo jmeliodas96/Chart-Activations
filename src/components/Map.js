@@ -1,156 +1,116 @@
 // dependencies
-import React, {Component} from 'react';
-import Highmap from 'highcharts/highmaps';
-import Highcharts from 'highcharts/highstock';
+import React, { Component } from 'react'
+import { findDOMNode } from 'react-dom';
 
-// Modules
-import exporting from 'highcharts/modules/map';
-import exporting_one from 'highcharts/indicators/indicators';
-import exporting_two from 'highcharts/indicators/pivot-points';
-import exporting_three from 'highcharts/indicators/macd';
-import exporting_four from 'highcharts/modules/exporting';
+// Highcharts
+import Highcharts from 'highcharts';
+import HighMaps from 'highcharts/highmaps'
 
-// Style
+// modules for Highcharts
+import drilldown from 'highcharts/modules/drilldown';
+import map from 'highcharts/modules/map'
+
+// Data
+import usAll from "../Data/usAll.js";
+import data from "../Data/USA.js";
+import OPTIONS from '../Options/map_default.js';
+
+// Components
+import Chart from './Chart.js';
+
+// styles
 import './map.css';
 
+// constantes
+const COUNTRY = {
+  chart: {
+      height: 250,
+      spacingLeft: 0
+  },
+  credits: {
+      enabled: false
+  },
+  title: {
+      text: null
+  },
+  subtitle: {
+      text: null
+  },
+  xAxis: {
+      tickPixelInterval: 50,
+      crosshair: true
+  },
+  yAxis: {
+      title: null,
+      opposite: true
+  },
+  tooltip: {
+      split: true
+  },
+  plotOptions: {
+      series: {
+          data:[],
+          animation: {
+              duration: 500
+          },
+          marker: {
+              enabled: false
+          },
+          threshold: 0,
+          // pointStart: parseInt(categories[0], 10)
+      }
+  }
+};
 
-// Load module after Highcharts is loaded
-exporting(Highmap);
-exporting_one(Highcharts);
-exporting_two(Highcharts);
-exporting_three(Highcharts);
-exporting_four(Highcharts);
+class Map extends Component{
 
-const data =  [
-    ['ni-as', 0],
-    ['ni-an', 1],
-    ['ni-224', 2],
-    ['ni-6330', 3],
-    ['ni-ca', 4],
-    ['ni-gr', 5],
-    ['ni-ji', 6],
-    ['ni-le', 7],
-    ['ni-mn', 8],
-    ['ni-ms', 9],
-    ['ni-ci', 10],
-    ['ni-es', 11],
-    ['ni-md', 12],
-    ['ni-mt', 13],
-    ['ni-ns', 14],
-    ['ni-bo', 15],
-    ['ni-co', 16]
-];
-
-class Map extends Component {
-
-//   // When the DOM is ready, create the chart.
-  componentWillMount(){
-}
-
-componentDidMount(){
-
-  console.log('This the Highmap : ',Highmap);
-  // let p = this.props;
-  // let highcharts = p.highcharts || window.Highmap;
-  // let constructorType = p.constructorType || 'chart';
-
-  let countries = {},
-      mapChart,
-      countryChart;
-
-
-  let chart = new Highmap.mapChart('container', {
-    chart: {
-      map: 'custom/world'
-    },
-    title: {
-        text: 'Report by Brand - Imox Technologies'
-    },
-
-    subtitle: {
-        text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/ni/ni-all.js">Nicaragua</a>'
-    },
-
-    mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-            verticalAlign: 'bottom'
-        }
-    },
-
-    colorAxis: {
-        min: 0
-    },
-
-    // series: [{
-        // data: 10,
-    //     name: 'Random data',
-    //     states: {
-    //         hover: {
-    //             color: '#BADA55'
-    //         }
-    //     },
-    //     dataLabels: {
-    //         enabled: true,
-    //         format: '{point.name}'
-    //     }
-    // }]
-});
-
-
-  console.log('This the chart :',chart);
-
-  console.log(chart.series.length);
-
-  for (let i = 0; i < data.length; i++) {
-    console.log(data[i]);
+  constructor(props){
+    super(props);
   }
 
+  componentDidMount() {
+    const ref = this.refs;
 
-  // Create chart
-  // this.chart =  new Highmap.Map[constructorType](this.container, p.options);
+    // let categories  = ['America Movil', 'Telefonica', 'Tigo'];
 
-}
+    let countryChart = ref.chart;
+    let chart = ref.chart;
 
-// shouldComponentUpdate(nextProps, nextState){
-//   let update = this.props.update
-//   return (typeof update === 'undefined') || update
-// }
-//
-// componentDidUpdate() {
-//   this.chart.update(this.props.options)
-// }
-//
-// componentWillReceiveProps() {
-//   this.chart.update(this.props.options)
-// }
-//
-// componentWillUnmount() {
-//   // Destroy chart
-//   this.chart.destroy();
-// }
+    let categories = [0,1];
 
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i] < 1 ) {
+
+        chart = new HighMaps['Map'] ( findDOMNode(this), OPTIONS );
+        chart.addSeries({
+              data: data,
+              mapData: usAll,
+              name: "USA",
+              dataLabels: {
+                enabled: true,
+                format: "{point.name}"
+              }
+          });
+          // countryChart = new Highcharts['chart'](findDOMNode(this), COUNTRY);
+          // countryChart.addSeries({
+          //       data: data
+          //   });
+      } /*end loop*/
+    }
+  }
+
+  componentWillUnmount () {
+    this.chart.destroy();
+  }
 
 render(){
       return (
-              <div id="container" className="container">
+              <div className='mapcontainer'>
+                <div />
               </div>
-            );
-    }
-// end of class
+              );
+        }
 }
-// <Highmap config={mapOptions} />
 
-// <h1>Ichigo-san</h1>
-// <Highchart config={Mapconfig} ref="Chart"/>
-
-      // let props = this.props;
-      // let self = this;
-      // let containerProps = this.props.containerProps || {};
-      //
-      // // Add ref to div props
-      // containerProps.ref = function (container) { self.container = container }
-
-      // console.log(containerProps);
-
-export default Map
+// end of class
+export default Map;
