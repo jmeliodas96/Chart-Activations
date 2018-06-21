@@ -1,0 +1,16 @@
+t = 0
+a = 2
+b = 2
+	materias = ["Ingenieria de Software", "Inteligencia Artificial", "Tendencias Tecnologicas", "Simulación"]
+
+if(t < 0):
+	print 'The value for t is null'
+	for i in range(0, len(materias)):
+		print ' Class : ', clases[i]
+
+else:
+	t = 1
+	t = t + a + b
+	
+
+print t

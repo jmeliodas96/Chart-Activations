@@ -15,11 +15,14 @@ import usAll from "../Data/usAll.js";
 import data from "../Data/USA.js";
 import OPTIONS from '../Options/map_default.js';
 
+
 // Components
 import Chart from './Chart.js';
 
 // styles
 import './map.css';
+import './chart.css';
+
 
 // constantes
 const COUNTRY = {
@@ -71,33 +74,33 @@ class Map extends Component{
   componentDidMount() {
     const ref = this.refs;
 
-    // let categories  = ['America Movil', 'Telefonica', 'Tigo'];
-
     let countryChart = ref.chart;
+
+
+    countryChart = new Highcharts['chart'](findDOMNode(this), COUNTRY);
+    countryChart.addSeries({
+          data: data
+      });
+
+
+
     let chart = ref.chart;
 
-    let categories = [0,1];
 
-    for (let i = 0; i < categories.length; i++) {
-      if (categories[i] < 1 ) {
+    chart = new HighMaps['Map'] ( findDOMNode(this), OPTIONS );
+    chart.addSeries({
+          data: data,
+          mapData: usAll,
+          name: "USA",
+          dataLabels: {
+            enabled: true,
+            format: "{point.name}"
+          }
+      });
 
-        chart = new HighMaps['Map'] ( findDOMNode(this), OPTIONS );
-        chart.addSeries({
-              data: data,
-              mapData: usAll,
-              name: "USA",
-              dataLabels: {
-                enabled: true,
-                format: "{point.name}"
-              }
-          });
-          // countryChart = new Highcharts['chart'](findDOMNode(this), COUNTRY);
-          // countryChart.addSeries({
-          //       data: data
-          //   });
-      } /*end loop*/
-    }
-  }
+   /*end loop*/
+}
+
 
   componentWillUnmount () {
     this.chart.destroy();
@@ -106,7 +109,7 @@ class Map extends Component{
 render(){
       return (
               <div className='mapcontainer'>
-                <div />
+                <div ref='Map'/>
               </div>
               );
         }
